@@ -1,0 +1,5 @@
+outs:
+- md5: b6059d458c2cf832dafd198182bf2478
+  size: 20833
+  hash: md5
+  path: pm25_model.joblib
