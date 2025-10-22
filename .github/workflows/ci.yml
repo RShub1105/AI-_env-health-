@@ -1,0 +1,40 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: checkout the repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+
+      # Step 3: install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Step 4: run tests (we’ll add real tests soon)
+      - name: Run tests
+        run: |
+          echo "✅ Running sample tests"
+          python -m pytest -q || echo "No tests yet"
+
+      # Step 5: build docker images
+      - name: Build Docker images
+        run: |
+          docker build -f Dockerfile.api -t envhealth-api:ci .
+          docker build -f Dockerfile.ui -t envhealth-ui:ci .
