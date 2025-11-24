@@ -73,7 +73,9 @@ if st.button("🚀 Predict Air Quality"):
 
     with st.spinner("Predicting air quality..."):
         try:
-            resp = requests.post("http://localhost:8000/predict", json=payload, timeout=5)
+            API_URL = "http://127.0.0.1:8000/predict"
+            resp = requests.post(API_URL, json=payload, timeout=5)
+
             if resp.status_code == 200:
                 result = resp.json()["predicted_pm25"]
                 st.success(f"✅ Predicted PM2.5: **{result:.2f} µg/m³**")
